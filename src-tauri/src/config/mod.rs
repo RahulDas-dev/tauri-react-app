@@ -48,7 +48,7 @@ impl AppConfig{
         if !config_path.exists(){
           let config_default:AppConfig = AppConfig::default();
           let config_str = serde_json::to_string(&config_default)?;
-          println!("{}",config_str);
+          //println!("{}",config_str);
           File::create(&config_path)?.write_all(config_str.as_bytes())?;
         }
         Ok(config_path)

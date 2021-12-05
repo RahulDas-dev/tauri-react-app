@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { FC, ReactElement } from 'react'
 import './App.css'
 
-function App() {
+import AppBody from './compenent/appbody/appbody'
+import StatusBar from './compenent/statusbar/statusbar'
+
+const App: FC = (): ReactElement => {
   return (
-    <div className="App">
-      HI TAURI
+    <div className="app-container" >
+      <AppBody/>
+      <StatusBar workspace="workspace"/>
     </div>
   )
 }

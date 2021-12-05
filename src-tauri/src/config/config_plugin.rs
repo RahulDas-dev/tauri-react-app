@@ -84,13 +84,13 @@ impl<R: Runtime> Plugin<R> for ConfigPlugin<R> {
                 state.change_position(position.x, position.y);
             }
             WindowEvent::Resized(size) => {
-                println!("window Resized {:?}", size);
+                //println!("window Resized {:?}", size);
                 let mut state =colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
                 state.change_dimension(size.width, size.height);
             }
             WindowEvent::CloseRequested|WindowEvent::Destroyed => {
                 let state =colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
-                println!("{:?}", state.clone());
+                //println!("{:?}", state.clone());
                 state.save_config().unwrap();
             }
             _ => {}

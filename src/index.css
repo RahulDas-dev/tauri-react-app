@@ -1,8 +1,20 @@
+@import-normalize;
+
+html,
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  height: 100%;
+}
+
+#root{
+  height: 100%;
 }
