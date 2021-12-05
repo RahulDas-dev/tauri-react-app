@@ -9,14 +9,14 @@ use tauri::{Size,PhysicalSize, Position, PhysicalPosition};
 pub mod config_plugin;
 
 #[derive( Clone, Debug, Serialize, Deserialize)]
-#[serde(rename_all = "PascalCase")]
+#[serde(rename_all = "lowercase")]
 pub struct AppConfig {
     workspace: String,
     theme: String,
-    x: f64,
-    y: f64, 
-    width: f64,
-    height: f64,
+    x: i32,
+    y: i32, 
+    width: u32,
+    height: u32,
 }
 
 
@@ -25,10 +25,10 @@ impl Default for AppConfig{
         AppConfig{
             workspace:String::from(""),
             theme:String::from("White"),
-            x: 0f64,
-            y: 0f64, 
-            width: 600f64,
-            height: 600f64,
+            x: 0i32,
+            y: 0i32, 
+            width: 800u32,
+            height: 600u32,
         }  
     }
 }
@@ -71,16 +71,22 @@ impl AppConfig{
         self.theme = theme.clone();
     }
 
-    pub fn change_dimension(&mut self, height:f64, width:f64) {
-        self.height = height;
+    pub fn change_dimension(&mut self, width:u32, height:u32) {
         self.width = width;
+        self.height = height;
     }
+
+    pub fn change_position(&mut self, x:i32, y:i32) {
+        self.x = x;
+        self.y = y;
+    }
+    
 
     pub fn get_position(&self) -> Position{ 
         return  Position::Physical(
             PhysicalPosition{
-                x: self.x as i32,
-                y: self.y as i32
+                x: self.x,
+                y: self.y
             }
         ); 
     }
@@ -88,8 +94,8 @@ impl AppConfig{
     pub fn get_size(&self) -> Size { 
         return  Size::Physical(
             PhysicalSize{
-                width: self.width as u32,
-                height: self.height as u32
+                width: self.width,
+                height: self.height
             }
         );
     }

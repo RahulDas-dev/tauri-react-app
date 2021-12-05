@@ -9,6 +9,8 @@ pub struct  Application{
     app: Builder<Wry>
 }
 
+
+
 impl Application{
 
     pub fn bootstrap() -> Self{
@@ -20,7 +22,7 @@ impl Application{
     }
 
     fn page_load_handler( window: Window, _:PageLoadPayload ){
-        window.emit("page-loaded", "").expect("failed to load Pages")
+        window.emit("page-loaded",  window.label().to_string()).expect("failed to load Pages")
     }
 
     pub fn run(self){

@@ -1,3 +1,4 @@
+use tauri::WindowEvent;
 use tauri::{plugin::Plugin, Runtime, Invoke, State, Window, PageLoadPayload, Manager};
 use tauri::async_runtime::Mutex;
 use std::sync::Arc;
@@ -31,19 +32,12 @@ async fn change_theme( config: State<'_, Tconfig>, theme: String) -> Result<(), 
     Ok(())
 }
 
-#[tauri::command]
-async fn change_dimension( config: State<'_, Tconfig>, height:f64, width:f64) -> Result<(), String>{
-    let mut cfg = config.inner().lock().await;
-    cfg.change_dimension(height, width);
-    Ok(())
-}
-
 
 impl<R: Runtime> ConfigPlugin<R> {
 
     pub fn new()-> Self {
         Self {
-            invoke_handler: Box::new(tauri::generate_handler![save_config, get_config,change_dimension,change_theme])
+            invoke_handler: Box::new(tauri::generate_handler![save_config, get_config,change_theme])
         }
     }
 }
@@ -56,11 +50,13 @@ impl<R: Runtime> Plugin<R> for ConfigPlugin<R> {
     }
   
     fn on_page_load(&mut self, window: Window<R>, _payload: PageLoadPayload) {
-        window.emit("config-init", "hi").unwrap();
+        let config = window.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock().clone();
+        window.emit("config-init", config).unwrap();  
     }
   
     fn initialize(&mut self, app: &tauri::AppHandle<R>, _config: serde_json::Value) -> tauri::plugin::Result<()> {
       let app_config_state : Tconfig = Arc::new(Mutex::new(AppConfig::new()));
+      //println!("{:?}", app_config_state.clone().blocking_lock());
       app.manage(app_config_state);
       Ok(())
     }
@@ -68,18 +64,50 @@ impl<R: Runtime> Plugin<R> for ConfigPlugin<R> {
     fn initialization_script(&self) -> Option<String> {
       None
     }
-  
+
     fn created(&mut self, window: Window<R>) {
+        let label = String::from("main");
+        if window.label().to_string().ne(&label) {
+            return;    
+        }
         let state = window.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
-        window.set_resizable(true).expect("Error While seeting resizable");
-        window.set_decorations(true).expect("Error While seeting resizable");
-        window.set_skip_taskbar(false).expect("Error While seeting resizable");
-        window.set_position(state.get_position()).expect("Error While seeting resizable");
-        window.set_size(state.get_size()).expect("Error While seeting size");
-        window.set_always_on_top(false).expect("Error While always on top");
+        window.set_resizable(true).unwrap();
+        window.set_position(state.get_position()).unwrap();
+        window.set_size(state.get_size()).unwrap();
+
+        
+        let colned = window.clone();
+        
+        window.on_window_event( move|e| match e {
+            WindowEvent::Moved(position) => {
+                let mut state =colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
+                state.change_position(position.x, position.y);
+            }
+            WindowEvent::Resized(size) => {
+                println!("window Resized {:?}", size);
+                let mut state =colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
+                state.change_dimension(size.width, size.height);
+            }
+            WindowEvent::CloseRequested|WindowEvent::Destroyed => {
+                let state =colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
+                println!("{:?}", state.clone());
+                state.save_config().unwrap();
+            }
+            _ => {}
+        }); 
+
+        window.show().unwrap();
+        window.set_focus().unwrap();
+        
     }
 
     fn extend_api(&mut self, message: Invoke<R>) {
       (self.invoke_handler)(message)
-    }   
+    }
+
+    /* fn on_event(&mut self, app: &AppHandle<R>, event: &tauri::Event) {
+        
+    } */
+    
+    
 }

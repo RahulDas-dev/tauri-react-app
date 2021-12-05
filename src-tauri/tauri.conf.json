@@ -56,8 +56,15 @@
         "title": "Tauri-react-app",
         "width": 800,
         "height": 600,
+        "minWidth": 400,
+        "minHeight":300,
+        "transparent": false,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "visible": false,
+        "decorations": true,
+        "alwaysOnTop": false,
+        "skipTaskbar": false
       }
     ],
     "security": {
