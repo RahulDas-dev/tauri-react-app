@@ -1,11 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg width="128" height="128" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
-  <defs>
-    <bx:grid x="0" y="0" width="294" height="254"/>
-  </defs>
-  <g transform="matrix(1, 0, 0, 1, -250, -100.02655)">
-    <polygon style="stroke: rgb(0, 0, 0); fill: rgb(2, 101, 222); stroke-width: 0px;" points="250 150 350 175 350 300 250 250"/>
-    <path style="stroke: rgb(0, 0, 0); fill-rule: evenodd; paint-order: fill; stroke-width: 0px; fill: rgb(68, 157, 235);" d="M 450 150 L 450 250 L 350 300 C 350.158 301.735 350 218 350 175 L 450 150 Z"/>
-    <polygon style="stroke: rgb(0, 0, 0); stroke-width: 0px; fill: rgb(126, 190, 246);" points="250 150 350 132 450 150 350 175"/>
-  </g>
+<svg width="128" height="128" viewBox="0 0 200 200" style="stroke:#000;stroke-width:0;" xmlns="http://www.w3.org/2000/svg">
+<path style="fill:#0265de" d="m250 150 100 25v125l-100-50z" transform="translate(-250 -100.027)"/>
+<path style="fill:#449deb" d="M450 150v100l-100 50c.158 1.735 0-82 0-125l100-25z" transform="translate(-250 -100.027)"/>
+<path style="fill:#7ebef6" d="m250 150 100-18 100 18-100 25z" transform="translate(-250 -100.027)"/>
 </svg>

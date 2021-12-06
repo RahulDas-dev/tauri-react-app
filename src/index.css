@@ -1,11 +1,11 @@
 @import-normalize;
 
+
+
 html,
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Roboto", "Poppins", "Material Icons";
   font-weight: 400;
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -17,4 +17,63 @@ body {
 
 #root{
   height: 100%;
+}
+
+.btn{
+  border: none;
+  background-color: inherit;
+  padding: 3px 12px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Roboto";
+  letter-spacing: 0.01em;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: normal;
+  margin: 0 0;
+  text-align: center;
+}
+
+
+.rounded{
+  border-radius: 2px;
+}
+
+.black .btn{
+  background-color:hsl(0, 0%, 15%);
+  color: white
+}
+
+.black .btn:hover{
+  background-color:rgb(30, 30, 30);
+  color: white
+}
+
+
+.white .btn{
+  background-color: rgb(230, 230, 230);
+  color: rgb(32,32,32)
+}
+
+.white .btn:hover{
+  background-color: rgb(240, 240, 240);
+  color: rgb(32,40,40)
+}
+
+.material-icons-outlined,
+.material-icons{
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: transparent;
+}
+
+.black .material-icons{
+  color: white
+}
+
+.white .btn{
+  color: rgb(32,32,32)
 }

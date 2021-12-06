@@ -3,10 +3,19 @@
   height: 100%;
 }
 
+.black{
+  background-color: rgb(32, 32, 32);
+  color: white;
+}
+
+.white{
+  color: #2a2a2b;
+  background-color: rgb(222, 222, 222);
+}
+
 .app-container>.app-body{
   width: 100%;
   height: calc(100% - 22px);
-  background-color:white;
 }
 
 .app-container>.status-bar{
