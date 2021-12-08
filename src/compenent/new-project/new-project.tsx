@@ -10,7 +10,7 @@ interface IProps {
 const NewProject: FC = (props): ReactElement => {
     
     return (
-        <div className="new-projecct" >new Project
+        <div className="new-project" >new Project
         </div>
     );
   };

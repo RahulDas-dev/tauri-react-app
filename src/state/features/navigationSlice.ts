@@ -13,7 +13,6 @@ interface INavigatorState {
 
 const initialState: INavigatorState = { value: RouteType.Home }
 
-
 export const navigationSlice = createSlice({
     name: "navigation",
     initialState: initialState,
