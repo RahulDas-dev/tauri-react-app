@@ -3,7 +3,6 @@ import { FC, ReactElement } from "react";
 import './history.css'
 
 
-
 const History: FC = (props): ReactElement => {
     
     return (
