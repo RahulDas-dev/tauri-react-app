@@ -1,6 +1,7 @@
 .app-container {
   width: 100%;
   height: 100%;
+  
 }
 
 .black{
@@ -16,9 +17,9 @@
 .app-container>.app-body{
   width: 100%;
   height: calc(100% - 22px);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 200px 200px;
 }
 
-.app-container>.status-bar{
-  height: 22px;
-  width: 100%;
-}
+

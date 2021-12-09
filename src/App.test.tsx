@@ -1,99 +1,99 @@
-import React from 'react';
+import { render } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { RouteType } from './state/features/navigationSlice'; 
+
 
 import App from './App';
-import { render } from 'react-dom';
+import { RouteType } from './state/features/navigationSlice'; 
 
 
 const mockStore = configureStore([]);
 
 describe('App compenent test with Navigation state HOME',()=> {
-    let container:HTMLDivElement ;
-    let store;
-
-    beforeEach(()=>{
-        container = document.createElement('div');
-        document.body.appendChild(container);
-        store = mockStore({
-          navigation: {
-            value: RouteType.Home
-          }
-        });
-        render( <Provider store={store}><App/></Provider>, container);
-    })
-
-    afterEach(()=>{
-        document.body.removeChild(container);
-        container.remove();
-    })
+    let store = mockStore({
+      navigation: {
+        value: RouteType.Home
+      },
+      theme: {
+        value: 'white'
+      },
+    });
 
     test('.app-container class should render once',()=>{
-        const ststubardiv = container.querySelectorAll('.app-container')
-        expect(ststubardiv).toHaveLength(1);
+        const {container} =  render( <Provider store={store}><App/></Provider>);
+        let test_div = container.querySelectorAll('.app-container')
+        expect(test_div).toHaveLength(1);
+        expect(container).toBeInTheDocument()
+    })
+
+    test('.app-container should have height & width 100%',()=>{
+      const {container} =  render( <Provider store={store}><App/></Provider>);
+      const test_div = container.querySelector('.app-container')
+      const computedStyle = window.getComputedStyle(test_div!, null);
+      const parentStyle = window.getComputedStyle(container, null);
+      expect(computedStyle.height).toBe(parentStyle.height)
+      expect(computedStyle.width).toBe(parentStyle.width)
     })
 
     test('.app-container>.app-body class should render once',()=>{
-      const ststubardiv = container.querySelectorAll('.app-container>.app-body')
-      expect(ststubardiv).toHaveLength(1);
+      const {container} =  render( <Provider store={store}><App/></Provider>);
+      const test_div = container.querySelectorAll('.app-container>.app-body')
+      expect(test_div).toHaveLength(1);
     })
 
+
     test('.app-container>.app-body>.app-home should render onec',()=>{
-      const ststubardiv = container.querySelectorAll('.app-container>.app-body>.app-home')
-      expect(ststubardiv).toHaveLength(1);
+      const {container} =  render( <Provider store={store}><App/></Provider>);
+      const test_div = container.querySelectorAll('.app-container>.app-body>.app-home')
+      expect(test_div).toHaveLength(1);
     })
 
     test('.app-container>.app-body>.new-project should not be render',()=>{
-      const ststubardiv = container.querySelectorAll('.app-container>.app-body>.new-project')
-      expect(ststubardiv.length).toBe(0)
+      const {container} =  render( <Provider store={store}><App/></Provider>);
+      const test_div = container.querySelectorAll('.app-container>.app-body>.new-project')
+      expect(test_div.length).toBe(0)
     })
 
     test('.app-home class should render onec',()=>{
-      const ststubardiv = container.querySelectorAll('.app-home')
-      expect(ststubardiv).toHaveLength(1);
+      const {container} =  render( <Provider store={store}><App/></Provider>);
+      const test_div = container.querySelectorAll('.app-home')
+      expect(test_div).toHaveLength(1);
     })
 
     test('.app-container>.status-bar class should render once',()=>{
-      const ststubardiv = container.querySelectorAll('.app-container>.status-bar')
-      expect(ststubardiv).toHaveLength(1);
+      const {container} =  render( <Provider store={store}><App/></Provider>);
+      const test_div = container.querySelectorAll('.app-container>.status-bar')
+      expect(test_div).toHaveLength(1);
     })
 
     test('.status-bar class should render onec',()=>{
-      const ststubardiv = container.querySelectorAll('.status-bar')
-      expect(ststubardiv).toHaveLength(1);
+      const {container} =  render( <Provider store={store}><App/></Provider>);
+      const test_div = container.querySelectorAll('.status-bar')
+      expect(test_div).toHaveLength(1);
     })
 
 })
 
 describe('App compenent test with Navigation state NEW_PROJECT',()=> {
-  let container:HTMLDivElement ;
-  let store;
-
-  beforeEach(()=>{
-      container = document.createElement('div');
-      document.body.appendChild(container);
-      store = mockStore({
-        navigation: {
-          value: RouteType.NewProject
-        }
-      });
-      render( <Provider store={store}><App/></Provider>, container);
-  })
-
-  afterEach(()=>{
-      document.body.removeChild(container);
-      container.remove();
-  })
+  let store = mockStore({
+    navigation: {
+      value: RouteType.NewProject
+    },
+    theme: {
+      value: 'white'
+    }
+  });
 
   test('.app-container>.app-body>.new-project should render onec',()=>{
-    const ststubardiv = container.querySelectorAll('.app-container>.app-body>.new-project')
-    expect(ststubardiv).toHaveLength(1);
+    const {container} =  render( <Provider store={store}><App/></Provider>);
+    const test_div = container.querySelectorAll('.app-container>.app-body>.new-project')
+    expect(test_div).toHaveLength(1);
   })
 
   test('.app-container>.app-body>.app-home should not be render',()=>{
-    const ststubardiv = container.querySelectorAll('.app-container>.app-body>.app-home')
-    expect(ststubardiv.length).toBe(0)
+    const {container} =  render( <Provider store={store}><App/></Provider>);
+    const test_div = container.querySelectorAll('.app-container>.app-body>.app-home')
+    expect(test_div.length).toBe(0)
   })
 
 })

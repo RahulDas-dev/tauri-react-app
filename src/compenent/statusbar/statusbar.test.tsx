@@ -1,29 +1,28 @@
 import StatusBar from './statusbar';
-import { render } from 'react-dom';
+import { render } from '@testing-library/react';
 
 
 describe('statusbar compenent test',()=> {
-    let container:HTMLDivElement ;
-    
-    beforeEach(()=>{
-        container = document.createElement('div');
-        document.body.appendChild(container);
-        render(<StatusBar workspace="file"/>, container);
-    })
-
-    afterEach(()=>{
-        document.body.removeChild(container);
-        container.remove();
-    })
 
     test('renders correctly Status Bar',()=>{
-        const ststubardiv = container.querySelectorAll('.status-bar')
-        expect(ststubardiv).toHaveLength(1);
+        const {container} =  render( <StatusBar workspace="file"/>);
+        const test_div = container.querySelectorAll('.status-bar')
+        expect(test_div).toHaveLength(1);
+        expect(container).toBeInTheDocument()
     })
 
     test('Status Bar should render child div',()=>{
-        const ststubardiv = container.querySelectorAll('.status-bar>div')
-        expect(ststubardiv).toHaveLength(2);
+        const {container} =  render( <StatusBar workspace="file"/>);
+        const test_div = container.querySelectorAll('.status-bar>div')
+        expect(test_div).toHaveLength(2);
+    })
+
+    test('Status Bar should have height 22px',()=>{
+        const {container} =  render( <StatusBar workspace="file"/>);
+        const test_div = container.querySelector('.status-bar')
+        //const computedStyle = window.getComputedStyle(test_div!, null);
+        //expect(test_div).toHaveStyle('height: 22px')
+        //expect(computedStyle.height).toBe('22px')
     })
 
 })

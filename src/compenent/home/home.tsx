@@ -9,11 +9,11 @@ import './home.css'
 
 const Home: FC = (props): ReactElement => {
 
-    const bgImageUrl = () => `url(${process.env.PUBLIC_URL+'/image/logo_white.svg'})`
+    
     const dispatch = useDispatch()
     
     return (
-        <div className="app-home" style={{backgroundImage: bgImageUrl()}} >
+        <div className="app-home"  >
             <div className="init-action">
                 <div className="btn-group">
                     <button className="btn rounded" onClick = {()=> dispatch(navigate(RouteType.NewProject))}>
