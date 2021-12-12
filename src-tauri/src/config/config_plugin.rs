@@ -1,3 +1,6 @@
+use std::io::{prelude::*,Error,ErrorKind};
+use std::fs::File;
+use std::path::PathBuf;
 use tauri::WindowEvent;
 use tauri::{plugin::Plugin, Runtime, Invoke, State, Window, PageLoadPayload, Manager};
 use tauri::async_runtime::Mutex;
@@ -10,13 +13,13 @@ pub struct ConfigPlugin<R: Runtime> {
     invoke_handler: Box<dyn Fn(Invoke<R>) + Send + Sync>,
 }
 
-#[tauri::command]
+/* #[tauri::command]
 async fn save_config( config: State<'_, Tconfig>)-> Result<(),String>{
     println!("save config requested");
     let cfg = config.inner().lock().await;
     cfg.save_config().expect("Error While Saving Config");
     Ok(())
-}
+} */
 
 #[tauri::command]
 async fn get_config( config: State<'_, Tconfig>)-> Result<serde_json::Value, String>{
@@ -37,8 +40,31 @@ impl<R: Runtime> ConfigPlugin<R> {
 
     pub fn new()-> Self {
         Self {
-            invoke_handler: Box::new(tauri::generate_handler![save_config, get_config,change_theme])
+            invoke_handler: Box::new(tauri::generate_handler![get_config,change_theme])
         }
+    }
+
+    fn resolve_config_path()-> Result<PathBuf,Error>{
+        let config_path = match tauri::api::path::local_data_dir(){
+          Some(path) => path.join("sfm").join("config.join"),
+          None => return Err(Error::new(ErrorKind::Other, "Local Dir not Resolved"))
+        };
+        if !config_path.exists(){
+          let config_default:AppConfig = AppConfig::default();
+          let config_str = serde_json::to_string(&config_default)?;
+          File::create(&config_path)?.write_all(config_str.as_bytes())?;
+        }
+        Ok(config_path)
+    }
+
+    pub fn save_config(state: &AppConfig)-> Result<(),Error>{
+        let config_path = match Self::resolve_config_path(){
+            Ok(path) => path,
+            Err(error) => panic!("{}", error)
+        };
+        let config_str = serde_json::to_string(state)?;
+        File::create(&config_path)?.write_all(config_str.as_bytes())?;
+        Ok(())
     }
 }
 
@@ -55,10 +81,11 @@ impl<R: Runtime> Plugin<R> for ConfigPlugin<R> {
     }
   
     fn initialize(&mut self, app: &tauri::AppHandle<R>, _config: serde_json::Value) -> tauri::plugin::Result<()> {
-      let app_config_state : Tconfig = Arc::new(Mutex::new(AppConfig::new()));
-      //println!("{:?}", app_config_state.clone().blocking_lock());
-      app.manage(app_config_state);
-      Ok(())
+        let config_path = Self::resolve_config_path()?;
+        let app_config_state : Tconfig = Arc::new(Mutex::new(AppConfig::new(&config_path)));
+        //println!("{:?}", app_config_state.clone().blocking_lock());
+        app.manage(app_config_state);
+        Ok(())
     }
   
     fn initialization_script(&self) -> Option<String> {
@@ -91,7 +118,7 @@ impl<R: Runtime> Plugin<R> for ConfigPlugin<R> {
             WindowEvent::CloseRequested|WindowEvent::Destroyed => {
                 let state =colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
                 //println!("{:?}", state.clone());
-                state.save_config().unwrap();
+                Self::save_config(&state).unwrap();
             }
             _ => {}
         }); 
