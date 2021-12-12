@@ -1,9 +1,9 @@
-use std::io::{prelude::*,Error,ErrorKind};
+use std::io::{Error,ErrorKind};
 use sqlx::{Sqlite, SqlitePool, migrate::MigrateDatabase, query};
 use tauri::{plugin::Plugin, Runtime, Invoke, Manager};
 use tokio::sync::Mutex;
 
-type DbInstances = Mutex<SqlitePool>;
+pub type DbInstances = Mutex<SqlitePool>;
 
 #[tauri::command]
 async fn load(){
@@ -78,5 +78,13 @@ impl<R: Runtime> Plugin<R> for DatabasePlugin<R> {
             Ok(())
         })
     }
+
+    fn extend_api(&mut self, message: Invoke<R>) {
+        (self.invoke_handler)(message)
+    }
+
+    /* fn initialization_script(&self) -> Option<String> {None}
+
+    fn on_page_load(&mut self, _: Window<R>, _: tauri::PageLoadPayload) {} */
 
 }

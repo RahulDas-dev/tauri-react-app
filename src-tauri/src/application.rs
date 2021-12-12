@@ -1,12 +1,12 @@
 use std::fs;
 use std::io::{Error as IoError,ErrorKind};
-use tauri::{Builder, Wry, Window, PageLoadPayload};
-// use super::config::AppConfig;
+use tauri::{App, Window, PageLoadPayload, Manager};
 use super::config::config_plugin::ConfigPlugin;
-use super::database::DatabasePlugin;
+use super::database::{DatabasePlugin, DbInstances};
 
 pub struct  Application{
-    app: Builder<Wry>
+    app: App
+
 }
 
 impl Application{
@@ -29,6 +29,8 @@ impl Application{
             .plugin(ConfigPlugin::new())
             .plugin(DatabasePlugin::new())
             .on_page_load(Self::page_load_handler)
+            .build(tauri::generate_context!())
+  .expect("failed to build tauri app")
         }
     }
 
@@ -37,7 +39,39 @@ impl Application{
     }
 
     pub fn run(self){
-        self.app.run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        self.app.run(|app_handle, e| match e {
+            tauri::Event::Ready => {
+              tauri::async_runtime::spawn(async move {
+                
+              });
+            },
+            tauri::Event::CloseRequested{ label, .. } => {
+                let app_handle = app_handle.clone();
+                tauri::async_runtime::block_on(async move {
+                    let main_label = String::from("main");
+                    if label.ne(&main_label) {
+                        return;    
+                    }
+                    let db_instance = app_handle.state::<DbInstances>().inner().lock().await;
+                    if !db_instance.is_closed(){
+                        db_instance.close().await;
+                    }
+                });
+            },
+            tauri::Event::ExitRequested { window_label, .. } => {
+                let app_handle = app_handle.clone();
+                tauri::async_runtime::block_on(async move {
+                    let main_label = String::from("main");
+                    if window_label.ne(&main_label) {
+                        return;    
+                    }
+                    let db_instance = app_handle.state::<DbInstances>().inner().lock().await;
+                    if !db_instance.is_closed(){
+                        db_instance.close().await;
+                    }
+                });
+            }
+            _ => (),
+          });
     }
-}
+} 
