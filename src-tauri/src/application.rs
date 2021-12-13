@@ -30,7 +30,7 @@ impl Application{
             .plugin(DatabasePlugin::new())
             .on_page_load(Self::page_load_handler)
             .build(tauri::generate_context!())
-  .expect("failed to build tauri app")
+            .expect("Failed to Build Application")
         }
     }
 
@@ -46,7 +46,7 @@ impl Application{
               });
             },
             tauri::Event::CloseRequested{ label, .. } => {
-                let app_handle = app_handle.clone();
+                //let app_handle = app_handle.clone();
                 tauri::async_runtime::block_on(async move {
                     let main_label = String::from("main");
                     if label.ne(&main_label) {
@@ -59,7 +59,7 @@ impl Application{
                 });
             },
             tauri::Event::ExitRequested { window_label, .. } => {
-                let app_handle = app_handle.clone();
+                //let app_handle = app_handle.clone();
                 tauri::async_runtime::block_on(async move {
                     let main_label = String::from("main");
                     if window_label.ne(&main_label) {
