@@ -1,0 +1,36 @@
+.new-project>.left-area>.project-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    row-gap: 5px;
+}
+
+.input-file{
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+    align-items: center;
+}
+
+input[type="text"]{
+    height: 22px;
+    font-size: 14px;
+    font-family: inherit;
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+    outline: none;
+}
+
+
+.white input[type="text"]{
+    background-color: rgb(247, 247, 247);
+    border: 1.5px solid hsl(180, 0%, 54%);
+}
+
+
+.black input[type="text"]{
+    background-color: rgb(200, 200, 200);
+    border: 1.5px solid rgb(129, 129, 129);
+}
+

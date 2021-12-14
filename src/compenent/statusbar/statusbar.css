@@ -1,15 +1,15 @@
 .no-workspace{
-    background-color: tomato;
+    background-color: var(--statusbar-color-nw);
     color: white;
 }
 
 .has-workspace{
-    background-color:cadetblue;
+    background-color: var(--statusbar-color-ww);
     color: white;
 }
 
 .status-bar{
-    height: 22px;
+    height: var(--statusbar-height);
     width: 100%;
     box-sizing: border-box;
     font-size: 12px;
@@ -28,6 +28,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
     margin-left: 10px;
     column-gap: 10px;
 }
@@ -37,6 +38,7 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
+    align-items: center;
     margin-right: 10px;
     column-gap: 10px;
   }

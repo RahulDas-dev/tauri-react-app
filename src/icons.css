@@ -1,0 +1,50 @@
+
+.material-icons-outlined,
+.material-icons{
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: transparent;
+  letter-spacing: normal;
+  text-transform: none;
+  word-wrap: normal;
+  white-space: nowrap;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.material-icons-outlined.md-18 { font-size: 18px; }
+.material-icons-outlined.md-24 { font-size: 24px; }
+.material-icons-outlined.md-36 { font-size: 36px; }
+.material-icons-outlined.md-48 { font-size: 48px; }
+
+.black .material-icons-outlined,
+.black .material-icons{
+  color: var(--btn-fg-color-black);
+}
+
+.black .material-icons-outlined,
+.black .material-icons:hover{
+  color: var(--btn-fg-color-black-hover);
+}
+
+.white .material-icons-outlined,
+.white .material-icons{
+  color: var(--btn-fg-color-white);
+}
+
+.white .material-icons-outlined:hover,
+.white .material-icons:hover{
+  color: var(--btn-fg-color-white-hover);
+}
+

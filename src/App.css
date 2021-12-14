@@ -5,18 +5,18 @@
 }
 
 .black{
-  background-color: rgb(32, 32, 32);
-  color: white;
+  background-color: var(--bg-black);
+  color: var(--fg-black);;
 }
 
 .white{
-  color: #2a2a2b;
-  background-color: rgb(222, 222, 222);
+  background-color: var(--bg-white);
+  color: var(--fg-white);
 }
 
 .app-container>.app-body{
   width: 100%;
-  height: calc(100% - 22px);
+  height: calc(100% - var(--statusbar-height));
   background-repeat: no-repeat;
   background-position: center;
   background-size: 200px 200px;

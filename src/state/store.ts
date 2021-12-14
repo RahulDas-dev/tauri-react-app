@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit"
 
 import navigationReducer from './features/navigationSlice'
 import themeSlice from "./features/themeSlice"
+import workSpaceSlice from "./features/workspaceSlice"
 
 
 export const store = configureStore({
     reducer: {
         navigation: navigationReducer,
-        theme: themeSlice
+        theme: themeSlice,
+        workspace: workSpaceSlice,
     }
 })
 

@@ -7,12 +7,49 @@
     align-items: stretch;
     justify-content: flex-start;
     background-color: transparent;
+    position: relative;
 }
 
-.new-project>.inputs{
+.new-project>button{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.new-project>.left-area{
+    display: grid;
+    place-items: center;
+    min-width: 450px;
+}
+
+.new-project>.right-area{
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    row-gap: 5px;
+    margin: 10px 10px;
+    border-radius: 4px;
+}
+
+.black .new-project>.right-area{
+    background-color: rgba(52, 52, 52, 0.2);
+    border: 0.5px solid rgb(40, 40, 40);
+}
+
+
+.white .new-project>.right-area{
+    background-color: rgba(240, 240, 240, 0.2);
+    border: 0.5px solid rgb(205, 207, 207);
+}
+
+.help-text{
+    text-align: right;
+    word-wrap:break-word
+}
+
+.p-5{
+    padding-right: 2px;
+    padding-left: 5px;
 }

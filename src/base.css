@@ -1,0 +1,40 @@
+@import-normalize;
+
+html,
+body {
+  margin: 0;
+  font-family: "Roboto", "Poppins", "Material Icons";
+  font-weight: 400;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  height: 100%;
+}
+
+:root {
+  --statusbar-height: 22px;
+  --statusbar-color-nw: #1b61e4;
+  --statusbar-color-ww: hsl(219, 79%, 60%);
+  
+  --bg-black: rgb(32, 32, 32);
+  --fg-black: rgb(222, 222, 222);
+  
+  --bg-white: rgb(222, 222, 222);
+  --fg-white: rgb(42, 42, 42);
+
+  --btn-bg-color-black: hsl(0, 0%, 19%);
+  --btn-fg-color-black: hsl(0, 0%, 78%);
+  --btn-bg-color-black-hover: hsl(0, 0%, 16%);
+  --btn-fg-color-black-hover: hsl(0, 0%, 100%);
+  --btn-border-color-black: hsl(0, 0%, 23%);
+  --btn-border-color-black-hover: hsl(0, 0%, 20%);
+
+  --btn-bg-color-white: hsl(0, 0%, 90%);
+  --btn-fg-color-white: hsl(0, 0%, 13%);
+  --btn-bg-color-white-hover: hsl(0, 0%, 95%);
+  --btn-fg-color-white-hover: hsl(0, 0%, 10%);
+  --btn-border-color-white: hsl(180, 1%, 74%);
+  --btn-border-color-white-hover: hsl(180, 1%, 74%);
+}
