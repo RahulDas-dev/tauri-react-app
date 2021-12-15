@@ -17,7 +17,7 @@ tauri-build = { version = "1.0.0-beta.4" }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.0.0-beta.8", features = [] }
+tauri = { version = "1.0.0-beta.8", features = ["dialog-open", "fs-read-dir"] }
 sqlx = { version = "0.5.9", features = [ "runtime-tokio-rustls", "sqlite" ] }
 tokio = { version = "1.9", features = [ "sync" ] }
 

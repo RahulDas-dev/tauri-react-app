@@ -6,6 +6,8 @@
 pub mod database;
 pub mod config;
 pub mod application;
+//pub mod dialog;
+
 use application::Application;
 
 fn main() {

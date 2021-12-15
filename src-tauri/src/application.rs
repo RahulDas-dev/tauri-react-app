@@ -3,6 +3,7 @@ use std::io::{Error as IoError,ErrorKind};
 use tauri::{App, Window, PageLoadPayload, Manager};
 use super::config::config_plugin::ConfigPlugin;
 use super::database::{DatabasePlugin, DbInstances};
+//use super::dialog::DialogPlugin;
 
 pub struct  Application{
     app: App

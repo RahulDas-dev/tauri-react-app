@@ -1,5 +1,9 @@
 import { FC, ReactElement, MouseEvent } from "react";
 
+import { open } from '@tauri-apps/api/dialog'
+import { readDir } from "@tauri-apps/api/fs";
+
+
 import './capture-input.css'
 
 interface IProps {
@@ -10,7 +14,12 @@ interface IProps {
 const CaptureInput: FC = (props): ReactElement => {
 
     const openFileDailog: (event:MouseEvent<HTMLButtonElement>)=> void =(event) =>{
-        console.log("Button clicked ",(event.target as HTMLButtonElement).id )
+        const button_id = (event.target as HTMLButtonElement).id
+
+        open({multiple: false, directory: true})
+        .then((result)=>{console.log(result)})
+        .catch((e)=>console.error(e));
+        
     }
     
     return (

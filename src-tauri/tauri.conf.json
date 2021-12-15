@@ -49,7 +49,15 @@
       "active": false
     },
     "allowlist": {
-      "all": false
+      "all": false,
+      "dialog":{
+        "all":false,
+        "open": true
+      },
+      "fs":{
+        "all":false,
+        "readDir": true
+      }
     },
     "windows": [
       {
