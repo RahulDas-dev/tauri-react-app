@@ -1,44 +1,113 @@
-import { FC, ReactElement, MouseEvent } from "react";
+import { FC, ReactElement, MouseEvent, useReducer } from "react";
 
-import { open } from '@tauri-apps/api/dialog'
-import { readDir } from "@tauri-apps/api/fs";
-
+import { invoke } from '@tauri-apps/api/tauri'
 
 import './capture-input.css'
 
-interface IProps {
+/* interface IProps {
     workspace: string
+} */
+
+interface IState{
+    input_value :string,
+    input_err_cls:string,
+    input_err_msg: string,
+    output_value :string,
+    output_err_cls:string,
+    output_err_msg: string,
 }
-  
+interface IAction{
+    type:'setInputValue'|'setInputError'|'ResetInputError'|'setOutputValue'|'setOutputError'|'ResetOutputError',
+    payload: string
+}
+
+const initialState: IState = {
+    input_value :"",
+    input_err_cls:"no-error",
+    input_err_msg: "",
+    output_value :"",
+    output_err_cls: "no-error",
+    output_err_msg: ""
+};
+
+
+function reducer(state:IState, action:IAction){
+    switch(action.type){
+        case 'setInputValue':
+            return {...state, input_value: action.payload, input_err_cls: "no-error"}
+        case 'setInputError':
+            return {...state, input_err_msg: action.payload , input_err_cls: "error"}
+        case 'ResetInputError':
+                return {...state,input_value:"", input_err_msg: "" , input_err_cls: "no-error"}    
+        case 'setOutputValue':
+            return {...state, output_value: action.payload , output_err_cls: "no-error"}
+        case 'setOutputError':
+            return {...state, output_err_msg: action.payload , output_err_cls: "error"}
+        case 'ResetOutputError':
+                return {...state,output_value:"", output_err_msg: "" , output_err_cls: "no-error"}              
+    }
+}
+
 
 const CaptureInput: FC = (props): ReactElement => {
 
-    const openFileDailog: (event:MouseEvent<HTMLButtonElement>)=> void =(event) =>{
-        const button_id = (event.target as HTMLButtonElement).id
+    const [state, dispatch ] = useReducer(reducer,initialState);
 
-        open({multiple: false, directory: true})
-        .then((result)=>{console.log(result)})
-        .catch((e)=>console.error(e));
-        
+    const openDailogInput: (event:MouseEvent<HTMLButtonElement>)=> void =(event) =>{
+        (event.target as HTMLButtonElement).disabled = true
+        dispatch({type:'ResetInputError', payload:""})
+        invoke('plugin:dialog|open_input_dialog')
+        .then((result)=> {
+            dispatch({type:'setInputValue', payload: result as string})
+        })
+        .catch((error)=> {
+            console.log(error)
+            dispatch({type:'setInputError', payload: error as string})
+        })
+        .finally(()=>{
+            (event.target as HTMLButtonElement).disabled = false
+        })
+    }
+
+    const openDailogOutput: (event:MouseEvent<HTMLButtonElement>)=> void =(event) =>{
+        (event.target as HTMLButtonElement).disabled = true
+        dispatch({type:'ResetOutputError', payload:""})
+        invoke('plugin:dialog|open_output_dialog')
+        .then((result)=> {
+            dispatch({type:'setOutputValue', payload: result as string})
+        })
+        .catch((error)=> {
+            dispatch({type:'setOutputError', payload: error as string})
+        })
+        .finally(()=>{
+            (event.target as HTMLButtonElement).disabled = false
+        })
     }
     
     return (
         <form className="project-input" >
             <div className="input-file">
-                <input type="text" placeholder="Input Directory" readOnly/> 
-                <button className="btn" id="input" type="button" onClick={openFileDailog}>Browse
-                    <span className="material-icons p-5">insert_photo</span>
+                <input type="text" placeholder="Input Directory" readOnly value={state.input_value}/> 
+                <button className="btn" type="button" onClick={openDailogInput}>Browse
+                    {/* <span className="material-icons p-5">insert_photo</span> */}
                 </button>
             </div>
-            <small  >The input directory should include a list of images</small>
+            <small className={`${state.input_err_cls}`}>
+                { state.input_err_cls === 'error' &&  state.input_err_msg}
+                { state.input_err_cls === 'no-error' &&  "The input directory should include a list of images"}
+            </small>
             <br/>
             <div className="input-file">
-                <input type="text" placeholder="Output Directory" readOnly/> 
-                <button className="btn" id="output"  type="button" onClick={openFileDailog}>Browse
-                    <span className="material-icons p-5">folder_open</span>  
+                <input type="text" placeholder="Output Directory" readOnly value={state.output_value}/> 
+                <button className="btn" type="button" onClick={openDailogOutput}>Browse
+                    {/* <span className="material-icons p-5">folder_open</span> */}
                 </button>
             </div>
-            <small className="help-text" >The output directory should be empty</small>
+            
+            <small className={`${state.output_err_cls}`}>
+                { state.output_err_cls === 'error' &&  state.output_err_msg}
+                { state.output_err_cls === 'no-error' &&  "The output directory should be empty"}
+            </small>
         </form>
     );
   };

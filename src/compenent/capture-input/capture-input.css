@@ -7,6 +7,7 @@
 }
 
 .input-file{
+    width: 350px;
     display: flex;
     flex-direction: row;
     column-gap: 5px;
@@ -14,12 +15,17 @@
 }
 
 input[type="text"]{
+    flex: 1;
     height: 22px;
-    font-size: 14px;
+    font-size: 12px;
     font-family: inherit;
     padding: 0.25em 0.5em;
     border-radius: 4px;
     outline: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    direction: rtl;
 }
 
 
@@ -34,3 +40,13 @@ input[type="text"]{
     border: 1.5px solid rgb(129, 129, 129);
 }
 
+
+small{
+    text-align: right;
+    word-wrap:break-word;
+    margin: 0;
+    padding: 0;
+}
+small.error{
+    color: red;
+}

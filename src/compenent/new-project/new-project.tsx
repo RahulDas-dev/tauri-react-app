@@ -1,18 +1,21 @@
+import { convertFileSrc } from "@tauri-apps/api/tauri";
 import { FC, ReactElement } from "react";
 import { useDispatch } from "react-redux";
 import { navigate, RouteType } from "../../state/features/navigationSlice";
 import CaptureInput from "../capture-input/capture-input";
+import {GridImage, ImageProps} from "../gridimage/gridimage";
 
 import './newproject.css'
 
-interface IProps {
+/* interface IProps {
     workspace: string
-}
+} */
   
 
 const NewProject: FC = (props): ReactElement => {
 
     const dispatch = useDispatch()
+    const img_path="C:/Users/admin/Desktop/codespace/python/Structure-from-Motion/dataset/box/IMG_20200328_173114.jpg"
     
     return (
         <div className="new-project" >
@@ -20,7 +23,17 @@ const NewProject: FC = (props): ReactElement => {
             <div className="left-area">
                 <CaptureInput/>
             </div>
-            <div className="right-area"></div>
+            <div className="right-area">
+                <GridImage source={img_path} width={200}/>
+                <GridImage source={img_path} width={200}/>
+                <GridImage source={img_path} width={200}/>
+                <GridImage source={img_path} width={200}/>
+                <GridImage source={img_path} width={200}/>
+                {/* <GridImage source={img_path} width={200}/>
+                <GridImage source={img_path} width={200}/>
+                <GridImage source={img_path} width={200}/>
+                <GridImage source={img_path} width={200}/> */}
+            </div>
         </div>
     );
   };

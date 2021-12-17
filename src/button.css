@@ -8,9 +8,13 @@
     letter-spacing: 0.01em;
     font-weight: 400;
     font-size: 14px;
-    line-height: normal;
+    line-height: 1.5;
     margin: 0 0;
     text-align: center;
+}
+
+.btn:disabled{
+    cursor: default;
 }
 
 .black .btn{
@@ -20,7 +24,7 @@
     border: 1px solid var(--btn-border-color-black);
 }
 
-.black .btn:hover{
+.black .btn:hover:not([disabled]){
     background-color: var(--btn-bg-color-black-hover);
     color: var(--btn-fg-color-black-hover);
     border-color: var(--btn-border-color-black-hover);
@@ -34,7 +38,7 @@
     border-radius: 4px;
 }
 
-.white .btn:hover{
+.white .btn:hover:not([disabled]){
     background-color: var(--btn-bg-color-white-hover);
     color: var(--btn-fg-color-white-hover);
     border-color: var(--btn-border-color-white-hover);

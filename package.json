@@ -51,7 +51,7 @@
     ]
   },
   "devDependencies": {
-    "@tauri-apps/cli": "*",
+    "@tauri-apps/cli": "^1.0.0-beta.10",
     "@types/redux-mock-store": "^1.0.3",
     "redux-mock-store": "^1.5.4"
   }

@@ -6,7 +6,7 @@
 pub mod database;
 pub mod config;
 pub mod application;
-//pub mod dialog;
+pub mod dialog;
 
 use application::Application;
 

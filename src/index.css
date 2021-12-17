@@ -6,3 +6,31 @@
   height: 100%;
 }
 
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+.white ::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.4);;
+}
+
+.white ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(100, 100, 100, 0.7);
+}
+
+.white ::-webkit-scrollbar-thumb:active {
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+.black ::-webkit-scrollbar-thumb {
+  background-color: rgba(121, 121, 121, 0.4);
+}
+
+.black ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(100, 100, 100, 0.7);
+}
+
+.black ::-webkit-scrollbar-thumb:active {
+	background-color: rgba(85, 85, 85, 0.8);
+}

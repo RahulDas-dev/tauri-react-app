@@ -24,13 +24,15 @@
 
 .new-project>.right-area{
     flex: 1;
+    padding: 2px 2px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    row-gap: 5px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
     margin: 10px 10px;
     border-radius: 4px;
+    overflow-y: scroll;
 }
 
 .black .new-project>.right-area{
@@ -44,10 +46,7 @@
     border: 0.5px solid rgb(205, 207, 207);
 }
 
-.help-text{
-    text-align: right;
-    word-wrap:break-word
-}
+
 
 .p-5{
     padding-right: 2px;

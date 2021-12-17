@@ -3,7 +3,7 @@ use std::io::{Error as IoError,ErrorKind};
 use tauri::{App, Window, PageLoadPayload, Manager};
 use super::config::config_plugin::ConfigPlugin;
 use super::database::{DatabasePlugin, DbInstances};
-//use super::dialog::DialogPlugin;
+use super::dialog::DialogPlugin;
 
 pub struct  Application{
     app: App
@@ -29,6 +29,7 @@ impl Application{
         app :tauri::Builder::default()
             .plugin(ConfigPlugin::new())
             .plugin(DatabasePlugin::new())
+            .plugin(DialogPlugin::new())
             .on_page_load(Self::page_load_handler)
             .build(tauri::generate_context!())
             .expect("Failed to Build Application")
