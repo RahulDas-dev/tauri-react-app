@@ -1,7 +1,8 @@
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import History from "../history/history";
+import History from "../../compenent/history/history";
+import CaptureInput from "../../compenent/capture-input/capture-input";
 import { navigate, RouteType } from "../../state/features/navigationSlice";
 
 import './home.css'
@@ -9,6 +10,8 @@ import { RootState } from "../../state/store";
 
 
 const Home: FC = (props): ReactElement => {
+
+    const [showModal, setShowModal] = useState<boolean>(false);
 
     const workspace = useSelector((state: RootState)=> state.workspace.value)
 
@@ -18,7 +21,7 @@ const Home: FC = (props): ReactElement => {
         <div className="app-home"  >
             <div className="init-action">
                 <div className="btn-group">
-                    <button className="btn width-12 " onClick = {()=> dispatch(navigate(RouteType.NewProject))}>
+                    <button className="btn width-12 " onClick = {()=> setShowModal(true)}>
                         <span className="material-icons">add</span> New Project
                     </button>
                     { workspace.project_id > 0 &&
@@ -32,6 +35,7 @@ const Home: FC = (props): ReactElement => {
                 </div>
             </div>
             <History/>
+            {showModal && <CaptureInput/>}
         </div>
     );
   };

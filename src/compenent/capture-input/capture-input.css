@@ -1,26 +1,54 @@
-.new-project>.left-area>.project-input{
+#portal>.modal>.modal-contain>.project-input{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
-    row-gap: 5px;
+    align-items: flex-start;
+    row-gap: 10px;
+    /* width: 350px; */
+    padding: 0;
+    margin: 0;
 }
 
-.input-file{
-    width: 350px;
+#portal>.modal>.modal-contain>.project-input>.input-box{
+    width: 100%;
+    text-align: right;
+}
+
+#portal>.modal>.modal-contain>.project-input>.input-box>.input-file{
+    width: 100%;
     display: flex;
     flex-direction: row;
-    column-gap: 5px;
     align-items: center;
+    column-gap: 3px;
 }
+
+
+.extn-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+}
+
+/* .input-radio-box{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.input-radio-box>label{
+    flex:1;
+} */
 
 input[type="text"]{
     flex: 1;
-    height: 22px;
+    height: 28px;
     font-size: 12px;
     font-family: inherit;
     padding: 0.25em 0.5em;
-    border-radius: 4px;
+    border-radius: 2px;
     outline: none;
     overflow: hidden;
     white-space: nowrap;
@@ -42,11 +70,36 @@ input[type="text"]{
 
 
 small{
+    font-size: 12px;
     text-align: right;
     word-wrap:break-word;
     margin: 0;
     padding: 0;
+    
 }
+
+.black small{
+    color: rgb(124, 124, 124);
+}
+
+.white small{
+    color: rgb(120, 120, 120);
+}
+
 small.error{
     color: red;
+}
+
+#portal>.modal>.modal-contain>.project-input>.btn-group{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+}
+
+#portal>.modal>.modal-contain>.project-input>.btn-group>.btn{
+    padding-left: 20px;
+    padding-right: 20px;
+
 }

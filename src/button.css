@@ -11,6 +11,7 @@
     line-height: 1.5;
     margin: 0 0;
     text-align: center;
+    border-radius: 2px;
 }
 
 .btn:disabled{
@@ -20,7 +21,6 @@
 .black .btn{
     background-color: var(--btn-bg-color-black);
     color: var(--btn-fg-color-black);
-    border-radius: 4px;
     border: 1px solid var(--btn-border-color-black);
 }
 
@@ -35,7 +35,6 @@
     background-color: var(--btn-bg-color-white);
     color: var(--btn-fg-color-white);
     border: 1px solid var(--btn-border-color-white);
-    border-radius: 4px;
 }
 
 .white .btn:hover:not([disabled]){
@@ -43,3 +42,4 @@
     color: var(--btn-fg-color-white-hover);
     border-color: var(--btn-border-color-white-hover);
 }
+

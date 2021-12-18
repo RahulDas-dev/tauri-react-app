@@ -2,6 +2,8 @@ import { FC, ReactElement, MouseEvent, useReducer } from "react";
 
 import { invoke } from '@tauri-apps/api/tauri'
 
+import { Modal } from "../modal/modal";
+
 import './capture-input.css'
 
 /* interface IProps {
@@ -85,30 +87,41 @@ const CaptureInput: FC = (props): ReactElement => {
     }
     
     return (
+        <Modal title="New Project">
         <form className="project-input" >
-            <div className="input-file">
-                <input type="text" placeholder="Input Directory" readOnly value={state.input_value}/> 
-                <button className="btn" type="button" onClick={openDailogInput}>Browse
-                    {/* <span className="material-icons p-5">insert_photo</span> */}
-                </button>
+            <div className="input-box">
+                <div className="input-file">
+                    <input type="text" placeholder="Select Input Directory" readOnly value={state.input_value}/> 
+                    <button className="btn" type="button" onClick={openDailogInput}>Browse
+                        {/* <span className="material-icons p-5">insert_photo</span> */}
+                    </button>
+                </div>
+                <small className={`${state.input_err_cls}`}>
+                    { state.input_err_cls === 'error' &&  state.input_err_msg}
+                    { state.input_err_cls === 'no-error' &&  "The input directory should include a list of images"}
+                </small>
             </div>
-            <small className={`${state.input_err_cls}`}>
-                { state.input_err_cls === 'error' &&  state.input_err_msg}
-                { state.input_err_cls === 'no-error' &&  "The input directory should include a list of images"}
-            </small>
-            <br/>
-            <div className="input-file">
-                <input type="text" placeholder="Output Directory" readOnly value={state.output_value}/> 
-                <button className="btn" type="button" onClick={openDailogOutput}>Browse
-                    {/* <span className="material-icons p-5">folder_open</span> */}
-                </button>
+
+            <div className="input-box">    
+                <div className="input-file">
+                    <input type="text" placeholder="Select Output Directory" readOnly value={state.output_value}/> 
+                    <button className="btn" type="button" onClick={openDailogOutput}>Browse
+                        {/* <span className="material-icons p-5">folder_open</span> */}
+                    </button>
+                </div>
+                <small className={`${state.output_err_cls}`}>
+                    { state.output_err_cls === 'error' &&  state.output_err_msg}
+                    { state.output_err_cls === 'no-error' &&  "The output directory should be empty"}
+                </small>
+            </div>
+
+            <div className="btn-group">
+                <button className="btn" type="button">create</button>
+                <button className="btn" type="button">close</button>
             </div>
             
-            <small className={`${state.output_err_cls}`}>
-                { state.output_err_cls === 'error' &&  state.output_err_msg}
-                { state.output_err_cls === 'no-error' &&  "The output directory should be empty"}
-            </small>
         </form>
+        </Modal>
     );
   };
   

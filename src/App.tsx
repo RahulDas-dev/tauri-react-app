@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux'
 
 import './App.css'
 
-import Home from './compenent/home/home'
-import NewProject from './compenent/new-project/new-project'
-import Workspace from './compenent/workspace/workspace'
+import Home from './ui/home/home'
+import NewProject from './ui/new-project/new-project'
+import Workspace from './ui/workspace/workspace'
 import StatusBar from './compenent/statusbar/statusbar'
 import { RootState } from './state/store'
 import { RouteType } from './state/features/navigationSlice'

@@ -1,0 +1,57 @@
+#portal>.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - var(--statusbar-height));;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+#portal>.modal {
+  position: fixed;
+  top: 20vh;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 400px;
+  /* background-color: var(--fg-black); */
+  border-radius: 2px;
+  /* box-shadow: 0 2px 8px rgba(255, 255, 255, 0.25); */
+  z-index: 30;
+  animation: slide-down 300ms ease-out forwards;
+}
+
+.modal>.modal-header{
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.modal>.modal-header>.modal-title{
+  flex: 1;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 20px;
+}
+.modal>.modal-contain{
+  padding: 0 15px 15px 15px;
+}
+
+/* @media (min-width: 768px) {
+  #portal .modal {
+    width: 40rem;
+    left: calc(50% - 20rem);
+  }
+}*/
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+} 

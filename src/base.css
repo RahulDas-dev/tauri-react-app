@@ -1,5 +1,14 @@
 @import-normalize;
 
+
+*,
+*:before,
+*:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
@@ -12,6 +21,13 @@ body {
   min-height: -webkit-fill-available;
   height: 100%;
 }
+
+ul{
+  list-style: none;
+}
+
+
+
 
 :root {
   --statusbar-height: 22px;
