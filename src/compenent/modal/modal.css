@@ -5,6 +5,15 @@
   width: 100%;
   height: calc(100vh - var(--statusbar-height));;
   z-index: 20;
+  
+}
+
+#portal>.backdrop.black {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+
+#portal>.backdrop.white {
   background-color: rgba(0, 0, 0, 0.75);
 }
 

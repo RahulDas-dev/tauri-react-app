@@ -1,8 +1,34 @@
-.history{
-    flex: 1;
+.app-home>.home-right-section>.history{
     background-color: transparent;
+    width: 100%;
+    padding: 10px 10px;
+}
+
+.app-home>.home-right-section>.history>.history-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 2px; 
+    width: 100%;
+}
+
+.app-home>.home-right-section>.history>.history-header>.history-title{
+    flex: 1;
+    text-align: center;
+    font-size: 15px;
+}
+
+.black .history>.history-header{
+    background-color: black;
+}
+.white .history>.history-header{
+    background-color: rgb(207, 207, 207);
+}
+
+.app-home>.home-right-section>.history>.history-list{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow-y: scroll;
 }

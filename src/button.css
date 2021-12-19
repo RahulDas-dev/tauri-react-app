@@ -1,21 +1,25 @@
 .btn{
     border: none;
     background-color: inherit;
-    padding: 0.25em 0.5em;
+    padding: 0.25em 0.75em;
     cursor: pointer;
-    display: inline-block;
+    display: flex;
     font-family: "Roboto";
     letter-spacing: 0.01em;
     font-weight: 400;
     font-size: 14px;
-    line-height: 1.5;
     margin: 0 0;
     text-align: center;
+    justify-content: center;
+	align-items: center;
     border-radius: 2px;
+    text-decoration: none 
 }
 
-.btn:disabled{
+.btn:disabled,
+.btn:disabled:focus{
     cursor: default;
+    opacity: 0.6
 }
 
 .black .btn{

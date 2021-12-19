@@ -9,7 +9,7 @@
 }
 
 
-.app-home>.init-action{
+.app-home>.home-left-section{
     flex: 1;
     background-color: transparent;
     display: flex;
@@ -19,7 +19,7 @@
 }
 
 
-.app-home .btn-group{
+.home-left-section>.btn-group{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -28,4 +28,13 @@
 
 .width-12{
     width: 200px;
+}
+
+.app-home>.home-right-section{
+    flex: 1;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

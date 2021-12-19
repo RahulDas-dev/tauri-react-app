@@ -11,7 +11,10 @@ import { RootState } from "../../state/store";
 
 const Home: FC = (props): ReactElement => {
 
-    const [showModal, setShowModal] = useState<boolean>(false);
+    const [isVisbile, setVisibility] = useState<boolean>(false);
+
+    const shoWModal = () => setVisibility(true)
+    const closeModal = () => setVisibility(false)
 
     const workspace = useSelector((state: RootState)=> state.workspace.value)
 
@@ -19,9 +22,9 @@ const Home: FC = (props): ReactElement => {
     
     return (
         <div className="app-home"  >
-            <div className="init-action">
+            <div className="home-left-section">
                 <div className="btn-group">
-                    <button className="btn width-12 " onClick = {()=> setShowModal(true)}>
+                    <button className="btn width-12 " onClick = {shoWModal}>
                         <span className="material-icons">add</span> New Project
                     </button>
                     { workspace.project_id > 0 &&
@@ -34,8 +37,10 @@ const Home: FC = (props): ReactElement => {
                     </button>
                 </div>
             </div>
-            <History/>
-            {showModal && <CaptureInput/>}
+            <div className="home-right-section">
+                <History/>
+            </div>
+            {isVisbile && <CaptureInput onClose ={closeModal}/>}
         </div>
     );
   };

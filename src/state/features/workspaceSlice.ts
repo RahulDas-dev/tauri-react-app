@@ -36,10 +36,16 @@ export const workSpaceSlice = createSlice({
         setOutputDir: (state: IWorkSpaceState, action: PayloadAction<string>) => {
             state.value.output_directory = action.payload;
         },
+        setWorkSpace: (state: IWorkSpaceState, action: PayloadAction<IWorkSpace>) => {
+            state.value.project_id = action.payload.project_id;
+            state.value.status = action.payload.status;
+            state.value.input_directory = action.payload.input_directory;
+            state.value.output_directory = action.payload.output_directory;
+        },
 
     }
 })
 
-export const { setProjectId, setStatus, setInputDir, setOutputDir } = workSpaceSlice.actions
+export const { setProjectId, setStatus, setInputDir, setOutputDir, setWorkSpace } = workSpaceSlice.actions
 
 export default workSpaceSlice.reducer

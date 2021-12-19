@@ -57,3 +57,12 @@
   color: var(--btn-fg-color-white-hover);
 }
 
+.white .btn-icon:hover{
+  color: var(--btn-fg-color-white-hover);
+  background-color: var(--bg-white-2);
+}
+
+.black .btn-icon:hover{
+  color: var(--btn-fg-color-black-hover);
+  background-color: var(--bg-black-2);
+}

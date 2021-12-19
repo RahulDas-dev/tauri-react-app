@@ -8,8 +8,9 @@ import './modal.css'
 
 
 const Backdrop: FC = (): ReactElement => {
+  const theme = useSelector((state: RootState)=> state.theme.value)
   return (
-      <div className="backdrop" ></div>
+      <div className={`backdrop ${theme === ThemeType.WHITE ? 'white' : 'black'}`} ></div>
   );
 };
 

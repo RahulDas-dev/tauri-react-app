@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "@fontsource/poppins";
+/* import "@fontsource/poppins"; */
 import "@fontsource/roboto";
 import "@fontsource/material-icons";
 import "@fontsource/material-icons-outlined";

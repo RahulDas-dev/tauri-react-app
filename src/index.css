@@ -7,7 +7,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 14px;
+  width: 7px;
   height: 14px;
 }
 .white ::-webkit-scrollbar-thumb {

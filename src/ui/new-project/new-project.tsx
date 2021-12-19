@@ -1,15 +1,12 @@
-import { convertFileSrc } from "@tauri-apps/api/tauri";
 import { FC, ReactElement } from "react";
 import { useDispatch } from "react-redux";
 import { navigate, RouteType } from "../../state/features/navigationSlice";
-/* import CaptureInput from "../../compenent/capture-input/capture-input"; */
-import {GridImage, ImageProps} from "../../compenent/gridimage/gridimage";
+
+import { GridImage } from "../../compenent/gridimage/gridimage";
 
 import './newproject.css'
 
-/* interface IProps {
-    workspace: string
-} */
+
   
 
 const NewProject: FC = (props): ReactElement => {

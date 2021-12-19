@@ -36,14 +36,14 @@
 }
 
 .black .new-project>.right-area{
-    background-color: rgba(52, 52, 52, 0.2);
-    border: 0.5px solid rgb(40, 40, 40);
+    background-color: var(--bg-black-2);
+    border: 0.5px solid var(--broder-black-color);
 }
 
 
 .white .new-project>.right-area{
-    background-color: rgba(240, 240, 240, 0.2);
-    border: 0.5px solid rgb(205, 207, 207);
+    background-color: var(--bg-white-2);
+    border: 0.5px solid var(--broder-white-color);
 }
 
 

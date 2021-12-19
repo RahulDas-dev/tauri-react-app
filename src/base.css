@@ -36,9 +36,15 @@ ul{
   
   --bg-black: rgb(32, 32, 32);
   --fg-black: rgb(222, 222, 222);
+
+  --bg-black-2: rgba(52, 52, 52, 0.2);
   
   --bg-white: rgb(222, 222, 222);
   --fg-white: rgb(42, 42, 42);
+
+  --bg-white-2: rgba(240, 240, 240, 0.2);
+  --broder-white-color: rgb(207, 207, 207);
+  --broder-black-color: rgb(40, 40, 40);
 
   --btn-bg-color-black: hsl(0, 0%, 19%);
   --btn-fg-color-black: hsl(0, 0%, 78%);
