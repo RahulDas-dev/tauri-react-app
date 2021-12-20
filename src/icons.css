@@ -16,6 +16,7 @@
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'liga';
+  transition: all .3s ease-in-out;
 }
 
 .btn-icon{
@@ -25,9 +26,10 @@
   display: inline-block;
   margin: 0 0;
   padding: 0 0;
+  transition: all .3s ease-in-out;
 }
 
-.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-18 { font-size: 14px; font-weight:lighter}
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }

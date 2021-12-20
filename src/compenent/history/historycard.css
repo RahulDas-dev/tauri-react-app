@@ -1,0 +1,83 @@
+.history>.history-list>.history-card{
+  width: 98%;
+  /* padding: 5px 5px; */
+  border-radius: 4px;
+  margin: 2px 0 0 0;
+}
+
+.black .history>.history-list>.history-card.even{
+  background-color: hsl(0, 0%, 20%);
+}
+
+.black .history>.history-list>.history-card.odd{
+  background-color: hsl(0, 0%, 25%);
+}
+
+.white .history>.history-list>.history-card.even{
+  background-color: hsl(206, 7%, 81%);
+}
+
+.white .history>.history-list>.history-card.odd{
+  background-color: hsl(227, 8%, 77%);
+}
+
+.history>.history-list>.history-card>.card-header{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 15px 5px 15px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 00.03em;
+  font-weight: 300;
+}
+
+.black .history>.history-list>.history-card.even>.card-header{
+  background-color: hsl(0, 0%, 22%);
+}
+
+.black .history>.history-list>.history-card.odd>.card-header{
+  background-color: hsl(0, 0%, 27%);
+}
+
+.white .history>.history-list>.history-card.even>.card-header{
+  background-color: hsl(206, 8%, 83%);
+}
+
+.white .history>.history-list>.history-card.odd>.card-header{
+  background-color: hsl(227, 9%, 79%);
+}
+
+.history>.history-list>.history-card>.card-body{
+  width: 100%;
+  padding: 10px 15px 10px 15px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  row-gap:3px;
+  letter-spacing: 00.04em;
+  font-weight: 300;
+}
+
+.history>.history-list>.history-card>.card-body>.card-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 5px;
+}
+
+.history>.history-list>.history-card>.card-body>.card-item1{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  padding-bottom: 5px;
+}
+
+.history>.history-list>.history-card>.card-body .mono-font{
+  font-size: 14px;
+  font-family: "Roboto Mono";
+  font-weight: 300;
+  letter-spacing: 00.005em;
+  
+}

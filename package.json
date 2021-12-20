@@ -5,8 +5,8 @@
   "dependencies": {
     "@fontsource/material-icons": "^4.5.0",
     "@fontsource/material-icons-outlined": "^4.5.0",
-    "@fontsource/poppins": "^4.5.0",
     "@fontsource/roboto": "^4.5.1",
+    "@fontsource/roboto-mono": "^4.5.0",
     "@reduxjs/toolkit": "^1.6.2",
     "@tauri-apps/api": "^1.0.0-beta.8",
     "@testing-library/jest-dom": "^5.15.1",

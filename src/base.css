@@ -12,14 +12,16 @@
 html,
 body {
   margin: 0;
-  font-family: "Roboto", "Poppins", "Material Icons";
+  font-family: "Roboto", "Roboto Mono", "Material Icons";
   font-weight: 400;
-  -webkit-font-smoothing: subpixel-antialiased;
-  -moz-osx-font-smoothing: grayscale;
   user-select: none;
   min-height: 100vh;
   min-height: -webkit-fill-available;
   height: 100%;
+  line-height: 1;
+  font-size: 16px;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ul{
@@ -32,7 +34,7 @@ ul{
 :root {
   --statusbar-height: 22px;
   --statusbar-color-nw: #1b61e4;
-  --statusbar-color-ww: hsl(219, 79%, 60%);
+  --statusbar-color-ww: #275891;
   
   --bg-black: rgb(32, 32, 32);
   --fg-black: rgb(222, 222, 222);

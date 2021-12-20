@@ -1,7 +1,8 @@
 .app-home>.home-right-section>.history{
     background-color: transparent;
     width: 100%;
-    padding: 10px 10px;
+    padding: 10px 30px 10px 10px;
+    
 }
 
 .app-home>.home-right-section>.history>.history-header{
@@ -9,26 +10,26 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 2px; 
-    width: 100%;
+    width: 97%;
 }
 
 .app-home>.home-right-section>.history>.history-header>.history-title{
     flex: 1;
     text-align: center;
-    font-size: 15px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 000.05em;
 }
 
 .black .history>.history-header{
-    background-color: black;
+    background-color: rgb(70, 70, 80);
 }
 .white .history>.history-header{
-    background-color: rgb(207, 207, 207);
+    background-color: hsl(214, 4%, 66%);
 }
 
 .app-home>.home-right-section>.history>.history-list{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    max-height: 75vh;
     overflow-y: scroll;
 }

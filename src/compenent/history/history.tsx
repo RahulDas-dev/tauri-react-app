@@ -61,8 +61,12 @@ const History: FC = (props): ReactElement => {
                 </button>
             </div>
             <div className="history-list">
-                {state.historyList.map((data:IWorkspace )=>
-                    <HistoryCard data={data}/>)}
+                {state.historyList.map((data:IWorkspace, index ) => 
+                    {
+                        let types:"even"|"odd"  = index%2 === 0 ? "even": "odd";
+                        return <HistoryCard data={data} type={types} />
+                    })
+                }
             </div>
         </div>
     );
