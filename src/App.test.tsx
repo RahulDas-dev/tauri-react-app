@@ -1,6 +1,10 @@
-import { render } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+// @ts-ignore:
+import {render} from '@testing-library/react';
+import '@testing-library/jest-dom'
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import { initialState } from './state/features/workspaceSlice';
 
 
 import App from './App';
@@ -17,16 +21,17 @@ describe('App compenent test with Navigation state HOME',()=> {
       theme: {
         value: 'white'
       },
+      workspace:initialState
     });
 
-    test('.app-container class should render once',()=>{
+    it('.app-container class should render once',()=>{
         const {container} =  render( <Provider store={store}><App/></Provider>);
         let test_div = container.querySelectorAll('.app-container')
         expect(test_div).toHaveLength(1);
         expect(container).toBeInTheDocument()
     })
 
-    test('.app-container should have height & width 100%',()=>{
+    it('.app-container should have height & width 100%',()=>{
       const {container} =  render( <Provider store={store}><App/></Provider>);
       const test_div = container.querySelector('.app-container')
       const computedStyle = window.getComputedStyle(test_div!, null);
@@ -35,43 +40,42 @@ describe('App compenent test with Navigation state HOME',()=> {
       expect(computedStyle.width).toBe(parentStyle.width)
     })
 
-    test('.app-container>.app-body class should render once',()=>{
+    it('.app-container>.app-body class should render once',()=>{
       const {container} =  render( <Provider store={store}><App/></Provider>);
       const test_div = container.querySelectorAll('.app-container>.app-body')
       expect(test_div).toHaveLength(1);
     })
 
 
-    test('.app-container>.app-body>.app-home should render onec',()=>{
+    it('.app-container>.app-body>.app-home should render onec',()=>{
       const {container} =  render( <Provider store={store}><App/></Provider>);
       const test_div = container.querySelectorAll('.app-container>.app-body>.app-home')
       expect(test_div).toHaveLength(1);
     })
 
-    test('.app-container>.app-body>.new-project should not be render',()=>{
+    it('.app-container>.app-body>.new-project should not be render',()=>{
       const {container} =  render( <Provider store={store}><App/></Provider>);
       const test_div = container.querySelectorAll('.app-container>.app-body>.new-project')
       expect(test_div.length).toBe(0)
     })
 
-    test('.app-home class should render onec',()=>{
+    it('.app-home class should render onec',()=>{
       const {container} =  render( <Provider store={store}><App/></Provider>);
       const test_div = container.querySelectorAll('.app-home')
       expect(test_div).toHaveLength(1);
     })
 
-    test('.app-container>.status-bar class should render once',()=>{
+    it('.app-container>.status-bar class should render once',()=>{
       const {container} =  render( <Provider store={store}><App/></Provider>);
       const test_div = container.querySelectorAll('.app-container>.status-bar')
       expect(test_div).toHaveLength(1);
     })
 
-    test('.status-bar class should render onec',()=>{
+    it('.status-bar class should render onec',()=>{
       const {container} =  render( <Provider store={store}><App/></Provider>);
       const test_div = container.querySelectorAll('.status-bar')
       expect(test_div).toHaveLength(1);
     })
-
 })
 
 describe('App compenent test with Navigation state NEW_PROJECT',()=> {

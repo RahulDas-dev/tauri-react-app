@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { RouteType } from '../../state/features/navigationSlice'; 
 import Home from './home';
 import { render } from 'react-dom';
+import { initialState } from '../../state/features/workspaceSlice';
 
 const mockStore = configureStore([]);
 
@@ -16,7 +17,11 @@ describe('statusbar compenent test',()=> {
         store = mockStore({
             navigation: {
               value: RouteType.Home
-            }
+            },
+            theme: {
+                value: 'white'
+            },
+            workspace:initialState
           });
         render(<Provider store={store}><Home/></Provider>, container);
     })

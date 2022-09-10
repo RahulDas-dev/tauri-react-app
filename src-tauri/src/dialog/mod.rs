@@ -1,12 +1,14 @@
 use std::fs;
 use std::sync::mpsc;
 use std::{ffi::OsStr, path::PathBuf};
-use tauri::{api::dialog, plugin::Plugin, Invoke, Runtime};
+use tauri::plugin::Plugin; 
+use tauri::{Invoke, Runtime};
+use tauri::api::dialog::FileDialogBuilder;
 
 #[tauri::command]
 async fn open_input_dialog() -> Result<String, String> {
   let (tx, rx) = mpsc::channel::<PathBuf>();
-  dialog::FileDialogBuilder::new().pick_folder(move |path| {
+  FileDialogBuilder::new().pick_folder(move |path| {
     match path {
       Some(path) => tx.send(path).unwrap(),
       None => tx.send(PathBuf::from("")).unwrap(),
@@ -44,7 +46,7 @@ async fn open_input_dialog() -> Result<String, String> {
 #[tauri::command]
 async fn open_output_dialog() -> Result<String, String> {
   let (tx, rx) = mpsc::channel::<PathBuf>();
-  dialog::FileDialogBuilder::new().pick_folder(move |path| {
+  FileDialogBuilder::new().pick_folder(move |path| {
     match path {
       Some(path) => tx.send(path).unwrap(),
       None => tx.send(PathBuf::from("")).unwrap(),

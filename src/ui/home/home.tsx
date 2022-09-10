@@ -7,6 +7,7 @@ import { navigate, RouteType } from "../../state/features/navigationSlice";
 
 import './home.css'
 import { RootState } from "../../state/store";
+import { IWorkSpaceState } from "../../state/features/workspaceSlice";
 
 
 const Home: FC = (props): ReactElement => {
@@ -16,7 +17,7 @@ const Home: FC = (props): ReactElement => {
     const shoWModal = () => setVisibility(true)
     const closeModal = () => setVisibility(false)
 
-    const workspace = useSelector((state: RootState)=> state.workspace.value)
+    const workspace = useSelector<RootState,IWorkSpaceState >((state)=> state.workspace)
 
     const dispatch = useDispatch()
     

@@ -11,21 +11,23 @@ import { RootState } from './state/store'
 import { RouteType } from './state/features/navigationSlice'
 import { ThemeType } from './state/features/themeSlice'
 
+import blacklogo from './images/logo_black.svg'
+import whitelogo from './images/logo_white.svg'
+
 const App: FC = (): ReactElement => {
 
-  const navigation = useSelector((state: RootState)=> state.navigation.value)
+  const navigation = useSelector<RootState, RouteType>((state)=> state.navigation.value)
   const theme = useSelector((state: RootState)=> state.theme.value)
 
   const bgImageUrl = () => {
-    let bg_image =  (theme === ThemeType.WHITE) ? '/image/logo_white.svg' : '/image/logo_black.svg'
-    return `url(${process.env.PUBLIC_URL+ bg_image})`
+    return (theme === ThemeType.WHITE) ? `url(${whitelogo})` : `url(${blacklogo})`
   }
 
   const navigatePages = () => {
     switch(navigation) {
-      case RouteType.Home:   return <Home/>;
-      case RouteType.NewProject:   return <NewProject/>;
-      case RouteType.Workspace:   return <Workspace/>;
+      case RouteType.Home: return <Home/>;
+      case RouteType.NewProject: return <NewProject/>;
+      case RouteType.Workspace: return <Workspace/>;
       default: return <Home/>
     }
   }

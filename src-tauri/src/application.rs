@@ -3,7 +3,7 @@ use super::database::{DatabasePlugin, DbInstances};
 use super::dialog::DialogPlugin;
 use std::fs;
 use std::io::{Error as IoError, ErrorKind};
-use tauri::{App, Manager, PageLoadPayload, Window};
+use tauri::{App, Manager, PageLoadPayload, Window, WindowEvent};
 
 pub struct Application {
   app: App,
@@ -42,29 +42,28 @@ impl Application {
 
   pub fn run(self) {
     self.app.run(|app_handle, e| match e {
-      tauri::Event::Ready => {
+      tauri::RunEvent::Ready => {
         tauri::async_runtime::spawn(async move {});
       }
-      tauri::Event::CloseRequested { label, .. } => {
-        //let app_handle = app_handle.clone();
-        tauri::async_runtime::block_on(async move {
-          let main_label = String::from("main");
-          if label.ne(&main_label) {
-            return;
-          }
-          let db_instance = app_handle.state::<DbInstances>().inner().lock().await;
-          if !db_instance.is_closed() {
-            db_instance.close().await;
-          }
-        });
+      tauri::RunEvent::WindowEvent { label, event, .. }=>{
+        if label.ne("main") {
+          return;
+        }
+        match event {
+          WindowEvent::CloseRequested {  .. } => {
+            tauri::async_runtime::block_on(async move {
+              let db_instance = app_handle.state::<DbInstances>().inner().lock().await;
+            if !db_instance.is_closed() {
+                db_instance.close().await;
+            }
+          })
+        }
+          _ => {}
+        }
       }
-      tauri::Event::ExitRequested { window_label, .. } => {
+      tauri::RunEvent::ExitRequested { .. } => {
         //let app_handle = app_handle.clone();
         tauri::async_runtime::block_on(async move {
-          let main_label = String::from("main");
-          if window_label.ne(&main_label) {
-            return;
-          }
           let db_instance = app_handle.state::<DbInstances>().inner().lock().await;
           if !db_instance.is_closed() {
             db_instance.close().await;

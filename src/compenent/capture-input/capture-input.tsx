@@ -4,7 +4,7 @@ import { invoke } from '@tauri-apps/api/tauri'
 
 import { Modal } from "../modal/modal";
 import { navigate, RouteType } from "../../state/features/navigationSlice";
-import { setWorkSpace, IWorkSpace } from "../../state/features/workspaceSlice";
+import { IWorkSpaceState, setWorkSpace } from "../../state/features/workspaceSlice";
 
 import './capture-input.css'
 
@@ -99,7 +99,7 @@ const CaptureInput: FC<IProps> = (props): ReactElement => {
                 outputDir: state.output_value
             }
         ).then((response: number[] ) => {
-            const new_workspace: IWorkSpace = {
+            const new_workspace: IWorkSpaceState = {
                 project_id: response[1],
                 status: "Active",
                 input_directory: state.input_value,

@@ -1,5 +1,6 @@
 import { FC, ReactElement } from "react";
 import { useSelector } from "react-redux";
+import { IWorkSpaceState } from "../../state/features/workspaceSlice";
 import { RootState } from "../../state/store";
 
 import './statusbar.css'
@@ -11,7 +12,7 @@ interface IProps {
 
 const StatusBar: FC<IProps> = (props): ReactElement => {
 
-    const workspace = useSelector((state: RootState)=> state.workspace.value)
+    const workspace = useSelector<RootState, IWorkSpaceState>((state)=> state.workspace)
 
     
     return (

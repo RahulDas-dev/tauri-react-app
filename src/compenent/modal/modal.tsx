@@ -1,4 +1,5 @@
 import { FC, Fragment, ReactElement } from "react";
+import type {ReactNode} from 'react'; // ok
 import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
 import { ThemeType } from "../../state/features/themeSlice";
@@ -15,7 +16,8 @@ const Backdrop: FC = (): ReactElement => {
 };
 
 export interface IModalProps{
-  title: string
+  title: string,
+  children: ReactNode,
 }
 
 const ModalOverlay: FC<IModalProps> = (props): ReactElement => {

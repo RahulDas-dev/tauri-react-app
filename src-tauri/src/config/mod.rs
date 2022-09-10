@@ -111,7 +111,12 @@ impl<R: Runtime> Plugin<R> for ConfigPlugin<R> {
         let mut state = colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
         state.change_dimension(size.width, size.height);
       }
-      WindowEvent::CloseRequested | WindowEvent::Destroyed => {
+      WindowEvent::CloseRequested{ .. } => {
+        let state = colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
+        //println!("{:?}", state.clone());
+        Self::save_config(&state).unwrap();
+      }
+      WindowEvent::Destroyed => {
         let state = colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
         //println!("{:?}", state.clone());
         Self::save_config(&state).unwrap();
