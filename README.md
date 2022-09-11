@@ -1,4 +1,4 @@
-# React Tauri App
+# Tauri App ![icon](./src-tauri/icons/32x32.png)
 
 1. Window State Plugin implemented
 
