@@ -32,8 +32,8 @@ ul{
 
 :root {
   --statusbar-height: 22px;
-  --statusbar-color-nw: #1b61e4;
-  --statusbar-color-ww: #275891;
+  --statusbar-color-nw: #1b95ec;
+  --statusbar-color-ww: #ec791b;
   
   --bg-black: rgb(32, 32, 32);
   --fg-black: rgb(222, 222, 222);
