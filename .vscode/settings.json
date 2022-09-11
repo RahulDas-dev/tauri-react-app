@@ -16,5 +16,6 @@
         "javascript",
         "typescript"
     ],
-    "rust-analyzer.experimental.procAttrMacros": true
+    "rust-analyzer.experimental.procAttrMacros": true,
+    "svg.preview.background": "white"
 }

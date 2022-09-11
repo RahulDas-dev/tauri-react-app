@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="-5 -3 128 128" xmlns:v="https://vecta.io/nano">
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1240" viewBox="-5 -3 128 128" xmlns:v="https://vecta.io/nano">
 <style><![CDATA[.B{pointer-events:all}.C{fill-opacity:.2}]]></style>
 <path d="M 56 51 l 25 12 v 31 l -25 12 l -25 -12 V 63 z" fill="#666b2a" class="B"/>
 <path d="M 56 75 L 81 63 v 31 l -25 12 z" class="B C"/>

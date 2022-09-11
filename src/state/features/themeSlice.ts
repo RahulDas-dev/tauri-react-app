@@ -10,7 +10,7 @@ interface IThemwState {
     value: ThemeType
 }
 
-const initialState: IThemwState = { value: ThemeType.WHITE }
+const initialState: IThemwState = { value: ThemeType.BLACK }
 
 export const themeSlice = createSlice({
     name: "theme",
