@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export enum ThemeType {
     BLACK = 'black',
     WHITE = 'white',
-
 }
 
 interface IThemwState {
