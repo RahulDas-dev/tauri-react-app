@@ -1,12 +1,12 @@
 [package]
-name = "app"
-version = "0.1.0"
-description = "A Tauri App"
+name = "tauri-react-app"
+version = "0.1.1"
+description = "A Tauri App Template"
 authors = ["you"]
 license = ""
 repository = ""
-default-run = "app"
-edition = "2018"
+edition = "2021"
+rust-version = "1.57"
 build = "src/build.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

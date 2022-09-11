@@ -6,6 +6,6 @@
 
 # Build History
 
-| Tauri Version | Date[DD/MM/YY]   | Release size| Debug size |
-| ------------- | ---------------- | ----------- | ---------- |
-| 1.0.0         | 11/09/2022       | 4098 kb     | 13053 kb   |
+| Tauri Version | App Version | Date[DD/MM/YY] | Release size| Debug size |
+| ------------- | ----------- | -------------- | ----------- | ---------- |
+| 1.0.0         | 0.1.1       | 11/09/2022     | 4098 kb     | 13053 kb   |
