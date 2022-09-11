@@ -12,7 +12,7 @@ import './newproject.css'
 const NewProject: FC = (props): ReactElement => {
 
     const dispatch = useDispatch()
-    const img_path="C:/Users/admin/Desktop/codespace/python/Structure-from-Motion/dataset/box/IMG_20200328_173114.jpg"
+    const img_path="D:/python/Structure-from-Motion/dataset/box/IMG_20200328_173114.jpg"
     
     return (
         <div className="new-project" >
