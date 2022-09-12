@@ -6,7 +6,7 @@ use tauri::{PhysicalPosition, PhysicalSize, Position, Size};
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
-pub struct AppConfig {
+pub struct WindowConfig {
   workspace: String,
   theme: String,
   x: i32,
@@ -15,9 +15,9 @@ pub struct AppConfig {
   height: u32,
 }
 
-impl Default for AppConfig {
+impl Default for WindowConfig {
   fn default() -> Self {
-    AppConfig {
+    WindowConfig {
       workspace: String::from(""),
       theme: String::from("White"),
       x: 0i32,
@@ -28,7 +28,7 @@ impl Default for AppConfig {
   }
 }
 
-impl AppConfig {
+impl WindowConfig {
   pub fn new(config_path: &PathBuf) -> Self {
     let config_file = File::open(config_path).expect("Failed To Read Config.json");
     serde_json::from_reader(config_file).expect("Failed To Parse Config.json")

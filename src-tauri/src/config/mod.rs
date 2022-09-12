@@ -1,26 +1,21 @@
 mod config;
 
-use config::AppConfig;
+use config::WindowConfig;
 use std::fs::File;
-use std::io::{prelude::*, Error, ErrorKind};
+use std::ops::Deref;
+use std::io::{prelude::*, Error};
 use std::path::PathBuf;
 use std::sync::Arc;
 use tauri::async_runtime::Mutex;
-use tauri::WindowEvent;
 use tauri::{plugin::Plugin, Invoke, Manager, PageLoadPayload, Runtime, State, Window};
+use tauri::{api::path::{BaseDirectory, resolve_path},RunEvent, WindowEvent,Env };
 
-type Tconfig = Arc<Mutex<AppConfig>>;
+type Tconfig = Arc<Mutex<WindowConfig>>;
+
 pub struct ConfigPlugin<R: Runtime> {
   invoke_handler: Box<dyn Fn(Invoke<R>) + Send + Sync>,
+  config_path: PathBuf 
 }
-
-/* #[tauri::command]
-async fn save_config( config: State<'_, Tconfig>)-> Result<(),String>{
-    println!("save config requested");
-    let cfg = config.inner().lock().await;
-    cfg.save_config().expect("Error While Saving Config");
-    Ok(())
-} */
 
 #[tauri::command]
 async fn get_config(config: State<'_, Tconfig>) -> Result<serde_json::Value, String> {
@@ -40,29 +35,14 @@ impl<R: Runtime> ConfigPlugin<R> {
   pub fn new() -> Self {
     Self {
       invoke_handler: Box::new(tauri::generate_handler![get_config, change_theme]),
+      config_path: PathBuf::default()
+
     }
   }
 
-  fn resolve_config_path() -> Result<PathBuf, Error> {
-    let config_path = match tauri::api::path::local_data_dir() {
-      Some(path) => path.join("sfm").join("config.join"),
-      None => return Err(Error::new(ErrorKind::Other, "Local Dir not Resolved")),
-    };
-    if !config_path.exists() {
-      let config_default: AppConfig = AppConfig::default();
-      let config_str = serde_json::to_string(&config_default)?;
-      File::create(&config_path)?.write_all(config_str.as_bytes())?;
-    }
-    Ok(config_path)
-  }
-
-  pub fn save_config(state: &AppConfig) -> Result<(), Error> {
-    let config_path = match Self::resolve_config_path() {
-      Ok(path) => path,
-      Err(error) => panic!("{}", error),
-    };
+  pub fn save_config(&self, state: &WindowConfig, ) -> Result<(), Error> {
     let config_str = serde_json::to_string(state)?;
-    File::create(&config_path)?.write_all(config_str.as_bytes())?;
+    File::create(&self.config_path)?.write_all(config_str.as_bytes())?;
     Ok(())
   }
 }
@@ -73,15 +53,29 @@ impl<R: Runtime> Plugin<R> for ConfigPlugin<R> {
   }
 
   fn on_page_load(&mut self, window: Window<R>, _payload: PageLoadPayload) {
-    let config = window.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock().clone();
+    let config = window.state::<Tconfig>().inner().blocking_lock().clone();
     window.emit("config-init", config).unwrap();
   }
 
   fn initialize(&mut self, app: &tauri::AppHandle<R>, _config: serde_json::Value) -> tauri::plugin::Result<()> {
-    let config_path = Self::resolve_config_path()?;
-    let app_config_state: Tconfig = Arc::new(Mutex::new(AppConfig::new(&config_path)));
-    //println!("{:?}", app_config_state.clone().blocking_lock());
+
+    let config_path = resolve_path(
+      app.config().deref(),
+      app.package_info().deref(),
+      &Env::default(),
+      "config.json",
+      Some(BaseDirectory::App))
+    .expect("failed to resolve path");
+    //println!("path_base {:?}",&config_path); 
+    
+    if !config_path.exists() {
+      let config_default: WindowConfig = WindowConfig::default();
+      let config_str = serde_json::to_string(&config_default)?;
+      File::create(&config_path)?.write_all(config_str.as_bytes())?;
+    }
+    let app_config_state: Tconfig = Arc::new(Mutex::new(WindowConfig::new(&config_path)));
     app.manage(app_config_state);
+    self.config_path = config_path.clone();
     Ok(())
   }
 
@@ -94,7 +88,7 @@ impl<R: Runtime> Plugin<R> for ConfigPlugin<R> {
     if window.label().to_string().ne(&label) {
       return;
     }
-    let state = window.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
+    let state = window.state::<Arc<Mutex<WindowConfig>>>().inner().blocking_lock();
     window.set_resizable(true).unwrap();
     window.set_position(state.get_position()).unwrap();
     window.set_size(state.get_size()).unwrap();
@@ -103,24 +97,13 @@ impl<R: Runtime> Plugin<R> for ConfigPlugin<R> {
 
     window.on_window_event(move |e| match e {
       WindowEvent::Moved(position) => {
-        let mut state = colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
+        let mut state = colned.state::<Arc<Mutex<WindowConfig>>>().inner().blocking_lock();
         state.change_position(position.x, position.y);
-      }
+      },
       WindowEvent::Resized(size) => {
-        //println!("window Resized {:?}", size);
-        let mut state = colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
+        let mut state = colned.state::<Arc<Mutex<WindowConfig>>>().inner().blocking_lock();
         state.change_dimension(size.width, size.height);
-      }
-      WindowEvent::CloseRequested{ .. } => {
-        let state = colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
-        //println!("{:?}", state.clone());
-        Self::save_config(&state).unwrap();
-      }
-      WindowEvent::Destroyed => {
-        let state = colned.state::<Arc<Mutex<AppConfig>>>().inner().blocking_lock();
-        //println!("{:?}", state.clone());
-        Self::save_config(&state).unwrap();
-      }
+      },
       _ => {}
     });
 
@@ -132,7 +115,27 @@ impl<R: Runtime> Plugin<R> for ConfigPlugin<R> {
     (self.invoke_handler)(message)
   }
 
-  /* fn on_event(&mut self, app: &AppHandle<R>, event: &tauri::Event) {
-
-  } */
+  fn on_event(&mut self, app: &tauri::AppHandle<R>, event: &RunEvent) {
+    
+    match event {
+      RunEvent::WindowEvent{ label, event, ..} => {
+        match event {
+          WindowEvent::CloseRequested { .. } => {
+            //api.prevent_close();
+            let window = app.get_window(&label).unwrap();
+            let state = window.state::<Arc<Mutex<WindowConfig>>>().inner().blocking_lock();
+            self.save_config(&state).unwrap();
+          },
+          WindowEvent::Destroyed => {
+            let window = app.get_window(&label).unwrap();
+            let state = window.state::<Arc<Mutex<WindowConfig>>>().inner().blocking_lock();
+            self.save_config(&state).unwrap();
+          }
+          _ => {}
+        }
+        
+      },
+      _ => {}
+    }
+  }
 }

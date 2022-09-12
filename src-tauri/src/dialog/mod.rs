@@ -91,6 +91,7 @@ pub struct DialogPlugin<R: Runtime> {
 
 impl<R: Runtime> DialogPlugin<R> {
   pub fn new() -> Self {
+    //println!("Dialog Plugin init");
     Self {
       invoke_handler: Box::new(tauri::generate_handler![open_input_dialog, open_output_dialog]),
     }

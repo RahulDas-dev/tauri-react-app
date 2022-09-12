@@ -107,7 +107,7 @@ const CaptureInput: FC<IProps> = (props): ReactElement => {
             }
             dispatchRedux(setWorkSpace(new_workspace))
             dispatchRedux(navigate(RouteType.NewProject))
-            //console.log(response)
+            console.log(response)
         }).catch((error) => {
             console.error(error)
         })

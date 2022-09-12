@@ -1,8 +1,8 @@
+use super::setup::AppSetUpPlugin;
 use super::config::ConfigPlugin;
 use super::database::{DatabasePlugin, DbInstances};
 use super::dialog::DialogPlugin;
-use std::fs;
-use std::io::{Error as IoError, ErrorKind};
+//use std::io::{Error as IoError, ErrorKind};
 use tauri::{App, Manager, PageLoadPayload, Window, WindowEvent};
 
 pub struct Application {
@@ -10,21 +10,11 @@ pub struct Application {
 }
 
 impl Application {
-  pub fn initialize() -> Result<(), IoError> {
-    let local_dir = match tauri::api::path::local_data_dir() {
-      Some(path) => path,
-      None => return Err(IoError::new(ErrorKind::Other, "Local Directory is not Resolved")),
-    };
-    let config_dir = local_dir.join("sfm");
-    if !config_dir.exists() {
-      fs::create_dir(&config_dir)?
-    }
-    Ok(())
-  }
-
+  
   pub fn bootstrap() -> Self {
     Self {
       app: tauri::Builder::default()
+        .plugin(AppSetUpPlugin::init())
         .plugin(ConfigPlugin::new())
         .plugin(DatabasePlugin::new())
         .plugin(DialogPlugin::new())
