@@ -4,6 +4,7 @@ use sqlx::{Column, Row, SqlitePool, sqlite::SqliteQueryResult};
 use tauri::State;
 use tokio::sync::Mutex;
 use super::workspace::WorkSpace;
+
 pub type DbInstances = Mutex<SqlitePool>;
 
 
@@ -11,16 +12,16 @@ pub async fn cretea_schema(db_url: &str) -> Result<SqliteQueryResult, sqlx::Erro
   let pool = SqlitePool::connect(&db_url).await?;
   let qry = "PRAGMA foreign_keys = ON ;
       CREATE TABLE IF NOT EXISTS settings
-          (
+      (
               settings_id             INTEGER PRIMARY KEY NOT NULL,
               description             TEXT                NOT NULL,
               created_on              DATETIME DEFAULT (datetime('now','localtime')),
               updated_on              DATETIME DEFAULT (datetime('now','localtime')),
               feature_type            TEXT     DEFAULT 'SIFT' NOT NULL,
               max_keypoint            INTEGER  DEFAULT 5000 NOT NULL 
-          );    
+      );    
       CREATE TABLE IF NOT EXISTS workspace
-          (
+      (
               project_id                   INTEGER PRIMARY KEY AUTOINCREMENT,
               created_on                   DATETIME DEFAULT (datetime('now','localtime')),
               updated_on                   DATETIME DEFAULT (datetime('now','localtime')),
@@ -29,7 +30,7 @@ pub async fn cretea_schema(db_url: &str) -> Result<SqliteQueryResult, sqlx::Erro
               status                       TEXT NOT NULL,
               settings_id                  INTEGER  NOT NULL DEFAULT 1,
               FOREIGN KEY (settings_id)    REFERENCES settings (settings_id) ON UPDATE SET NULL ON DELETE SET NULL
-          );
+      );
       INSERT INTO settings (description) VALUES ('DEFAULT SETTINGS');";
   let result = sqlx::query(&qry).execute(&pool).await;
   pool.close().await;
@@ -109,3 +110,21 @@ pub async fn get_work_history(db_state: State<'_, DbInstances>) -> Result<Vec<Js
     Err(e) => return Err(e.to_string()),
   }
 }
+
+/* 
+#[tauri::command]
+pub async fn workspace_list(db_state: State<'_, DbInstances>) -> Result<Vec<JsonValue>, String> {
+  let db_instanec = db_state.inner().lock().await;
+  let qry = r#"SELECT * FROM workspace "#;
+  let rows = sqlx::query_as!(WorkSpaceRow,r#"SELECT * FROM workspace "#).fetch_all(&*db_instanec).await?;
+  match rows {
+    Ok(results) => {
+      let mut result_list: Vec<JsonValue> = Vec::new();
+      for row_data in results{
+
+        result_list.push(&serde_json::to_string_pretty(&row_data.WorkSpace)?)
+      }
+    }
+    Err(e) => return Err(e.to_string()),
+  }
+} */

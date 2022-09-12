@@ -63,13 +63,4 @@ impl WindowConfig {
     });
   }
 
-  /* pub fn save_config(& self)-> Result<(),Error>{
-      let config_path = match AppConfig::resolve_config_path(){
-          Ok(path) => path,
-          Err(error) => panic!("{}", error)
-      };
-      let config_str = serde_json::to_string(&self)?;
-      File::create(&config_path)?.write_all(config_str.as_bytes())?;
-      Ok(())
-  } */
 }

@@ -3,13 +3,12 @@ mod query;
 
 pub use self::query::DbInstances; 
 
-use std::io::{Error, ErrorKind};
+use std::ops::Deref;
 
 use sqlx::{migrate::MigrateDatabase, Sqlite, SqlitePool};
 use tauri::{plugin::Plugin, Invoke, Manager, Runtime};
+use tauri::{api::path::{BaseDirectory, resolve_path},Env };
 use tokio::sync::Mutex;
-
-//use query::DbInstances;
 
 pub struct DatabasePlugin<R: Runtime> {
   invoke_handler: Box<dyn Fn(Invoke<R>) + Send + Sync>,
@@ -24,17 +23,6 @@ impl<R: Runtime> DatabasePlugin<R> {
     }
   }
 
-  fn resolve_database_url() -> Result<String, Error> {
-    let database_path = match tauri::api::path::local_data_dir() {
-      Some(path) => match path.join("sfm").join("datastore.db").to_str() {
-        Some(path_in_str) => path_in_str.to_owned(),
-        None => return Err(Error::new(ErrorKind::Other, "Database Path not Resolved")),
-      },
-      None => return Err(Error::new(ErrorKind::Other, "Local Directory not Resolved")),
-    };
-    return Ok(format!("sqlite://{}", database_path));
-  }
-
 }
 
 impl<R: Runtime> Plugin<R> for DatabasePlugin<R> {
@@ -43,7 +31,18 @@ impl<R: Runtime> Plugin<R> for DatabasePlugin<R> {
   }
 
   fn initialize(&mut self, app: &tauri::AppHandle<R>, _: serde_json::Value) -> tauri::plugin::Result<()> {
-    let database_url = Self::resolve_database_url()?;
+
+    let database_url = resolve_path(
+      app.config().deref(),
+      app.package_info().deref(),
+      &Env::default(),
+      "datastore.db",
+      Some(BaseDirectory::App))
+      .expect("Failed to resolve DB path")
+      .to_str()
+      .expect("error While Str Conv")
+      .to_string();
+    
     tauri::async_runtime::block_on(async move {
       if !Sqlite::database_exists(&database_url).await.unwrap_or(false) {
         Sqlite::create_database(&database_url).await.unwrap();
@@ -59,8 +58,4 @@ impl<R: Runtime> Plugin<R> for DatabasePlugin<R> {
   fn extend_api(&mut self, message: Invoke<R>) {
     (self.invoke_handler)(message)
   }
-
-  /* fn initialization_script(&self) -> Option<String> {None}
-
-  fn on_page_load(&mut self, _: Window<R>, _: tauri::PageLoadPayload) {} */
 }

@@ -65,8 +65,7 @@ impl<R: Runtime> Plugin<R> for ConfigPlugin<R> {
       &Env::default(),
       "config.json",
       Some(BaseDirectory::App))
-    .expect("failed to resolve path");
-    //println!("path_base {:?}",&config_path); 
+    .expect("Failed to resolve Config path");
     
     if !config_path.exists() {
       let config_default: WindowConfig = WindowConfig::default();
